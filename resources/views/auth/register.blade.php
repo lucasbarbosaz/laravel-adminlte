@@ -11,7 +11,7 @@
             </div>
             <div class="card-body register-card-body">
                 <p class="register-box-msg">Register a new membership</p>
-                <form action="{{ route('register') }}" method="post">
+                <form action="{{ route('register.store') }}" method="post">
                     @csrf
                     @method('POST')
                         <div class="input-group mb-1">
@@ -70,7 +70,7 @@
 
                 </form>
                 <p class="mb-0 text-center">
-                    <a href="login.html" class="link-primary text-center"> I already have a membership </a>
+                    <a href="{{ route('login') }}" class="link-primary text-center"> I already have a membership </a>
                 </p>
             </div>
         </div>

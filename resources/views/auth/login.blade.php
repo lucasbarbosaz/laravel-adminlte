@@ -6,7 +6,7 @@
     <div class="login-box">
         <div class="card card-outline card-primary">
             <div class="card-header">
-                <a href="../index2.html" class="link-dark text-center link-offset-2 link-opacity-100 link-opacity-50-hover">
+                <a href="{{ route('login') }}" class="link-dark text-center link-offset-2 link-opacity-100 link-opacity-50-hover">
                     <h1 class="mb-0"><b>Admin</b>LTE</h1>
                 </a>
             </div>
@@ -57,9 +57,9 @@
                         <button type="submit" class="btn btn-primary">Sign In</button>
                     </div>
                 </form>
-                <p class="mb-1"><a href="forgot-password.html">I forgot my password</a></p>
+                <p class="mb-1"><a href="{{ route('password.request') }}">I forgot my password</a></p>
                 <p class="mb-0">
-                    <a href="register.html" class="text-center"> Register a new membership </a>
+                    <a href="{{ route('register') }}" class="text-center"> Register a new membership </a>
                 </p>
             </div>
         </div>
