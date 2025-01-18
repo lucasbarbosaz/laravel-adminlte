@@ -12,13 +12,22 @@
             </div>
             <div class="card-body login-card-body">
                 <p class="login-box-msg">Sign in to start your session</p>
+
+                @session('status')
+                    <div class="alert alert-success" role="alert">
+                        {{ $value }}
+                    </div>
+                @endsession
+
+
                 <form action=" {{ route('login') }} " method="post">
                     @csrf
                     @method('POST')
                     <div class="input-group mb-1">
                         <div class="form-floating">
-                            <input id="loginEmail" type="email" name="email" class="form-control @error('email') is-invalid @enderror"
-                                value="{{ old('email') }}" placeholder="" />
+                            <input id="loginEmail" type="email" name="email"
+                                class="form-control @error('email') is-invalid @enderror" value="{{ old('email') }}"
+                                placeholder="" />
                             <label for="loginEmail">Email</label>
 
                             @error('email')
