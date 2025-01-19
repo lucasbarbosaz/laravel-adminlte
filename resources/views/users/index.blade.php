@@ -3,12 +3,17 @@
 @section('page-title', 'Usuários')
 
 @section('page-actions')
-    <a href="#" class="btn btn-primary">Novo Usuário</a>
+    <a href="{{ route('users.create') }}" class="btn btn-primary">Novo Usuário</a>
 @endsection
 
 @section('content')
-    Lista de usuários
 
+    @session('status')
+        <div class="alert alert-success" role="alert">
+            {{ $value }}
+        </div>
+    @endsession
+    
     <table class="table">
         <thead>
             <tr>

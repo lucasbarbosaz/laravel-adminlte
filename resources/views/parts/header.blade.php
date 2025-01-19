@@ -155,6 +155,7 @@
                             @csrf
                             @method('POST')
                             <button type="submit" class="btn btn-default btn-flat">Sign out</button>
+                        </form>
                     </li>
                 </ul>
             </li>
