@@ -34,6 +34,7 @@ class UserController extends Controller
 
     public function edit (User $user) {
 
+        $user->load('profile'); // carrega o relacionamento profile
         return view('users.edit', compact('user'));
     }
 
@@ -51,6 +52,20 @@ class UserController extends Controller
             ->route('users.index')
             ->with('status', 'Usuário atualizado com sucesso!');
         
+    }
+
+    public function updateProfile(Request $request, User $user) {
+        $input = $request->validate([
+            'type' => 'required',
+            'address' => 'nullable',
+        ]);
+
+        $user->profile()->updateOrCreate([
+            'user_id' => $user->id
+        ], $input);
+
+        return back()
+            ->with('status', 'Perfil atualizado com sucesso!');
     }
 
     public function destroy(User $user) {
