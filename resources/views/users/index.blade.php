@@ -44,6 +44,10 @@
             @empty
                 Nenhum usuário cadastrado
             @endforelse
+
+            
         </tbody>
     </table>
+
+    {{ $users->links() }}
 @endsection
