@@ -34,7 +34,7 @@ class UserController extends Controller
 
     public function edit (User $user) {
 
-        $user->load('profile'); // carrega o relacionamento profile
+        $user->load(['profile', 'interests']); // carrega o relacionamento profile
         return view('users.edit', compact('user'));
     }
 
@@ -64,6 +64,21 @@ class UserController extends Controller
             'user_id' => $user->id
         ], $input);
 
+        return back()
+            ->with('status', 'Perfil atualizado com sucesso!');
+    }
+
+    public function updateInterests(Request $request, User $user) {
+        $input = $request->validate([
+            'interests' => 'nullable|array',
+        ]);
+
+        $user->interests()->delete();
+
+        if (!empty($input['interests'])) {
+            $user->interests()->createMany($input['interests']); //createMany é um método do relacionamento manyToMany que cria vários registros ao mesmo tempo
+        }
+    
         return back()
             ->with('status', 'Perfil atualizado com sucesso!');
     }

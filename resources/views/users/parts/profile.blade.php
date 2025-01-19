@@ -8,7 +8,7 @@
         </div>
         <div class="card-body">
             <div class="mb-3">
-                <label for="exampleInputEmail1" class="form-label">Tipo de pessoa</label>
+                <label class="form-label">Tipo de pessoa</label>
                 <select name="type" class="form-control @error('type') is-invalid @enderror">
                     @foreach (['PF', 'PJ'] as $type)
                         <option
