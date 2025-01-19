@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class UserController extends Controller
 {
@@ -29,6 +30,7 @@ class UserController extends Controller
     }
 
     public function store(Request $request) {
+        
         $input = $request->validate([
             'name' => 'required',
             'email' => 'required|email',
@@ -43,12 +45,21 @@ class UserController extends Controller
 
     public function edit (User $user) {
 
+        if (!Gate::allows('edit', $user)) {
+            abort(403); // abort é uma função que retorna uma exceção HTTP
+        }
+
         $user->load(['profile', 'interests']); // carrega o relacionamento profile
         $roles = Role::all();
         return view('users.edit', compact('user', 'roles'));
     }
 
     public function update(Request $request, User $user) {
+        if (!Gate::allows('edit', $user)) {
+            abort(403); // abort é uma função que retorna uma exceção HTTP
+        }
+
+
         $input = $request->validate([
             'name' => 'required',
             'email' => 'required|email',
@@ -65,6 +76,11 @@ class UserController extends Controller
     }
 
     public function updateProfile(Request $request, User $user) {
+        if (!Gate::allows('edit', $user)) {
+            abort(403); // abort é uma função que retorna uma exceção HTTP
+        }
+
+
         $input = $request->validate([
             'type' => 'required',
             'address' => 'nullable',
@@ -79,6 +95,11 @@ class UserController extends Controller
     }
 
     public function updateInterests(Request $request, User $user) {
+        if (!Gate::allows('edit', $user)) {
+            abort(403); // abort é uma função que retorna uma exceção HTTP
+        }
+
+
         $input = $request->validate([
             'interests' => 'nullable|array',
         ]);
@@ -94,6 +115,11 @@ class UserController extends Controller
     }
 
     public function updateRoles(Request $request, User $user) {
+        if (!Gate::allows('edit', $user)) {
+            abort(403); // abort é uma função que retorna uma exceção HTTP
+        }
+
+
         $input = $request->validate([
             'roles' => 'required|array',
         ]);
@@ -106,6 +132,12 @@ class UserController extends Controller
     }
 
     public function destroy(User $user) {
+
+        if (!Gate::allows('destroy', $user)) {
+            abort(403); // abort é uma função que retorna uma exceção HTTP
+        }
+
+
         $user->delete();
 
         return back()
