@@ -28,7 +28,27 @@ class UserController extends Controller
 
         User::create($input);
 
-        return redirect()->route('users.index')->with('status', 'Usuário criado com sucesso!');
+        return redirect()
+            ->route('users.index')->with('status', 'Usuário criado com sucesso!');
+    }
 
+    public function edit (User $user) {
+
+        return view('users.edit', compact('user'));
+    }
+
+    public function update(Request $request, User $user) {
+        $input = $request->validate([
+            'name' => 'required',
+            'email' => 'required|email',
+            'password' => 'exclude_if:password,null|min:6'
+        ]);
+
+        $user->fill($input);
+        $user->save();
+
+        return back()
+            ->with('status', 'Usuário atualizado com sucesso!');
+        
     }
 }
