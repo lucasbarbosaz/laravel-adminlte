@@ -13,7 +13,7 @@
             {{ $value }}
         </div>
     @endsession
-    
+
     <table class="table">
         <thead>
             <tr>
@@ -31,7 +31,13 @@
                     <td>{{ $user->email }}</td>
                     <td>
                         <a href="{{ route('users.edit', $user->id) }}" class="btn btn-primary btn-sm">Editar</a>
-                        <a href="#" class="btn btn-danger btn-sm">Excluir</a>
+
+                        <form action="{{ route('users.destroy', $user->id) }}" method="POST">
+                            @csrf
+                            @method('DELETE')
+
+                            <button type="submit" class="btn btn-danger btn-sm">Excluir</button>
+                        </form>
 
                     </td>
                 </tr>

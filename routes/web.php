@@ -15,5 +15,6 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/users/store', [UserController::class, 'store'])->name('users.store');
     Route::get('/users/{user}/edit', [UserController::class, 'edit'])->name('users.edit');
     Route::put('/users/{user}/update', [ UserController::class, 'update' ])->name('users.update');
+    Route::delete('/users/{user}/destroy', [ UserController::class, 'destroy' ])->name('users.destroy');
 });
 
