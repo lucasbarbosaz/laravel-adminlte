@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -35,7 +36,8 @@ class UserController extends Controller
     public function edit (User $user) {
 
         $user->load(['profile', 'interests']); // carrega o relacionamento profile
-        return view('users.edit', compact('user'));
+        $roles = Role::all();
+        return view('users.edit', compact('user', 'roles'));
     }
 
     public function update(Request $request, User $user) {
@@ -81,6 +83,18 @@ class UserController extends Controller
     
         return back()
             ->with('status', 'Perfil atualizado com sucesso!');
+    }
+
+    public function updateRoles(Request $request, User $user) {
+        $input = $request->validate([
+            'roles' => 'required|array',
+        ]);
+
+        $user->roles()->sync($input['roles']); //sync é um método do relacionamento manyToMany que sincroniza os registros com o usuário atual e os cargos selecionados
+
+        return back()
+            ->with('status', 'Perfil atualizado com sucesso!');
+
     }
 
     public function destroy(User $user) {
